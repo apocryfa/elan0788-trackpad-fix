@@ -1,0 +1,12 @@
+# Keep batch files CRLF — LF-only breaks goto label resolution in cmd.exe
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Everything else LF
+*.md text eol=lf
+*.py  text eol=lf
+*.ps1 text eol=crlf
+
+# Driver binaries are never committed
+*.sys binary
+*.cat binary

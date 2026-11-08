@@ -1,0 +1,12 @@
+# Never commit driver binaries or run artefacts
+*.sys
+*.cat
+*.inf
+*.bak
+hidi2c_backups/
+hidi2c_swap_log.txt
+*.log
+
+# OS noise
+Thumbs.db
+desktop.ini
