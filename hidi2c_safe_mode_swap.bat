@@ -10,7 +10,7 @@ title hidi2c.sys Safe-Mode Driver Swap
 :: ============================================================
 :: hidi2c.sys Safe-Mode Driver Swap
 :: Replaces live .8972 with pre-regression .1150 (Valid-signed)
-:: MUST be run from Safe Mode (hidi2c unloaded, file writable)
+:: Safe Mode recommended but not required (see README "It works in normal Windows")
 :: NOTE: trackpad does NOT work in Safe Mode - use the keyboard
 :: Usage: hidi2c_safe_mode_swap.bat [/dryrun]
 :: ============================================================
@@ -180,7 +180,7 @@ if exist "%SRC_DIR%\%NEW_CAT%" (
         )
     )
 ) else (
-    echo   WARNING: No catalog found. Driver may not load.
+    echo   NOTE: no catalog in kit (cosmetic - DriverStore step skipped; file still swaps)
 )
 
 :VERIFY

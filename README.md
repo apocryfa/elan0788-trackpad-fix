@@ -6,7 +6,7 @@ diagnostics, the evidence, and a partial mitigation: rolling `hidi2c.sys` back
 from `.8972` to `.1150`.
 
 No driver binaries are committed here. The replacement binary is distributed as a
-release asset (see [Binary](#binary)).
+release asset (see [Download](#download)).
 
 ## What we found
 
@@ -41,13 +41,13 @@ Full evidence: [`docs/bug-report.md`](docs/bug-report.md).
 - Verify after download: `certutil -hashfile hidi2c-1150.sys SHA256`
 - Extract the zip to a folder. It contains `hidi2c-1150.sys`, `apply-1150.ps1`,
   `verify-hidi2c.ps1`, `hidi2c_safe_mode_swap.bat`, and `hidi2c_REVERT.bat`.
-  Place `hidi2c-1150.sys` in your `Downloads` folder (or set `SRC_DIR`) before
-  running the swap script; `apply-1150.ps1` expects the binary in the same
-  folder as itself.
+  No specific location is required — the kit's scripts resolve the driver from
+  their own folder. `apply-1150.ps1` expects the binary in the same folder as
+  itself.
 - `apply-1150.ps1` (inside the zip) is a self-elevating re-apply (hash-checks
-  the saved copy, backs up the current binary, swaps, verifies). Run
-  `verify-hidi2c.ps1` (also in the zip) afterwards, or periodically, to detect
-  servicing reverts.
+  the saved copy, backs up the current binary, swaps, verifies — no Authenticode
+  check; use the `.bat` for that). Run `verify-hidi2c.ps1` (also in the zip)
+  afterwards, or periodically, to detect servicing reverts.
 
 The binary is Microsoft's; redistribution is under their terms.
 
@@ -60,7 +60,7 @@ just extract the kit and run the script from that folder.
 | File | Purpose |
 |---|---|
 | `hidi2c-1150.sys` | Replacement driver, `10.0.26100.1150` (from the release kit) |
-| `hidi2c_26100.8972.backup.sys` | Optional fallback copy of the original, for restore |
+| `hidi2c_26100.8972.backup.sys` | Optional fallback copy of the original, for restore (not shipped in the kit — copy your own `.8972` if you want it) |
 
 The `.sys` must be a genuine Microsoft-signed binary. Verify before use:
 
@@ -158,7 +158,7 @@ Every exit path pauses and clears the `safeboot` flag.
 powershell -NoProfile -Command "(Get-Item C:\Windows\System32\drivers\hidi2c.sys).VersionInfo.FileVersion"
 sc query hidi2c
 certutil -hashfile C:\Windows\System32\drivers\hidi2c.sys SHA256
-certutil -hashfile C:\Users\<you>\Downloads\hidi2c-1150.sys SHA256
+certutil -hashfile .\hidi2c-1150.sys SHA256
 ```
 
 The two hashes must match.
