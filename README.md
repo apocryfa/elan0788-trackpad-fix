@@ -170,6 +170,18 @@ print('CRLF:', d.count(b'\r\n'), 'LF-only:', d.count(b'\n') - d.count(b'\r\n'))
 
 See `docs/pitfalls.md` for the other batch-script traps these scripts hit.
 
+## Replacement binary (release asset)
+
+The replacement `hidi2c.sys` (`10.0.26100.1150`) is **not** in this repository. It is
+attached to the GitHub Release for this repo as `hidi2c-1150.sys`.
+
+- SHA-256: `B9A930357CF1DB021ECA9AD416368DE913BBF62D875330164D58D733E8750235`
+- Verify after download: `certutil -hashfile hidi2c-1150.sys SHA256`
+- Place it in your `Downloads` folder (or set `SRC_DIR`) and rename to
+  `hidi2c_26100_1150_SIGNED.sys` before running the swap script.
+
+The binary is Microsoft's; redistribution is under their terms.
+
 ## Licence
 
 Scripts: MIT. Driver binaries are Microsoft's, redistributed under their own terms —
