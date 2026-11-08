@@ -42,12 +42,14 @@ It is attached to the GitHub Release for this repo as `hidi2c-1150-kit.zip`.
 - SHA-256 of `hidi2c-1150.sys` inside the zip:
   `B9A930357CF1DB021ECA9AD416368DE913BBF62D875330164D58D733E8750235`
 - Verify after download: `certutil -hashfile hidi2c-1150.sys SHA256`
-- Extract the zip; place `hidi2c-1150.sys` in your `Downloads` folder (or set
-  `SRC_DIR`) before running the swap script. `apply-1150.ps1` expects the
-  binary in the same folder as itself.
-- `apply-1150.ps1` is a self-elevating re-apply (hash-checks the saved copy,
-  backs up the current binary, swaps, verifies). Run `verify-hidi2c.ps1`
-  afterwards (or periodically) to detect servicing reverts.
+- Extract the zip to a folder. It contains `hidi2c-1150.sys`, `apply-1150.ps1`, and
+  `verify-hidi2c.ps1`. Place `hidi2c-1150.sys` in your `Downloads` folder (or set
+  `SRC_DIR`) before running the swap script; `apply-1150.ps1` expects the binary
+  in the same folder as itself.
+- `apply-1150.ps1` (inside the zip) is a self-elevating re-apply (hash-checks
+  the saved copy, backs up the current binary, swaps, verifies). Run
+  `verify-hidi2c.ps1` (also in the zip) afterwards, or periodically, to detect
+  servicing reverts.
 
 The binary is Microsoft's; redistribution is under their terms.
 
