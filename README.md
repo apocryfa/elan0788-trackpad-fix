@@ -1,7 +1,7 @@
 # elan0788-trackpad-fix
 
 ELAN precision touchpad (`ACPI\ELAN0788`, HID-over-I2C) on the HP Victus 15-fa1xxx
-intermittently dies or emits phantom pointer movement. This repo holds the
+intermittently stutters and dies. This repo holds the
 diagnostics, the evidence, and a partial mitigation: rolling `hidi2c.sys` back
 from `.8972` to `.1150`.
 
@@ -11,16 +11,11 @@ release asset (see [Binary](#binary)).
 ## What we found
 
 - The shipped driver is `hidi2c.sys` **10.0.26100.8972**. An older build,
-  **10.0.26100.1150**, makes failures much less frequent and severe. `.8972`
-  made things "a lot worse"; `.1150` is the last known-good.
-- The PnP device stays `OK`, all services stay Running, and no arrive/remove
-  (400/410) events fire during a failure. The fault is invisible to
-  Device Manager.
-- Kernel DPC/ISR traces (`wpr` CPU+Power, `xperf -a dpcisr`) show the
-  HID-over-I2C path doing 18 → 161 → 1118 → 7901 events per ~45-50 s across
-  states — far more interrupt work than the visible input justifies.
-- Phantom movement comes in two modes: **interrupt-driven** (GPIO/I2C/HID all
-  active) and **polled** (all silent, yet input still flows).
+  **10.0.26100.1150**, makes failures less frequent and severe. `.8972`
+  made things a lot worse; `.1150` is the first signed older driver I found.
+- The issue is hard to diagnose.  The PnP device stays `OK`, all services
+  stay Running, and no arrive/remove (400/410) events fire during a failure.
+  The fault is invisible to Device Manager.
 - A full power drain (EC reset) revives the pad; a warm reboot does not.
   Fast Startup (`HiberbootEnabled=1`) means "Shut down" is a hybrid sleep, not
   a cold boot.
