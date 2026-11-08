@@ -10,9 +10,9 @@ release asset (see [Binary](#binary)).
 
 ## What we found
 
-- The shipped driver is `hidi2c.sys` **10.0.26100.8972**. An older build,
-  **10.0.26100.1150**, makes failures less frequent and severe. `.8972`
-  made things a lot worse; `.1150` is the first signed older driver I found.
+- The shipped driver is `hidi2c.sys` **10.0.26100.8972** caused huge problems. An older build,
+  **10.0.26100.1150**, makes failures less frequent and severe. `.1150` is the first signed older
+  driver I found that reduced the problems.
 - The issue is hard to diagnose.  The PnP device stays `OK`, all services
   stay Running, and no arrive/remove (400/410) events fire during a failure.
   The fault is invisible to Device Manager.
@@ -28,16 +28,13 @@ Full evidence: [`docs/bug-report.md`](docs/bug-report.md).
 
 | Path | Purpose |
 |---|---|
-| `hidi2c_safe_mode_swap.bat` | Swap `.8972` → `.1150` in place (self-relaunching, dry-run support) |
-| `hidi2c_REVERT.bat` | Restore the pre-swap backup |
 | `docs/pitfalls.md` | Batch-script traps hit while building the above |
 | `docs/bug-report.md` | Evidence-only report for Microsoft Feedback Hub / ELAN |
 | (release asset) `hidi2c-1150-kit.zip` | `.1150` binary + `apply-1150.ps1` + `verify-hidi2c.ps1` + both `.bat` scripts |
 
-## Binary
+## Download
 
-The replacement `hidi2c.sys` (`10.0.26100.1150`) is **not** in this repository.
-It is attached to the GitHub Release for this repo as `hidi2c-1150-kit.zip`.
+`hidi2c-1150-kit.zip`.
 
 - SHA-256 of `hidi2c-1150.sys` inside the zip:
   `B9A930357CF1DB021ECA9AD416368DE913BBF62D875330164D58D733E8750235`
