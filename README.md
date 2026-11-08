@@ -175,7 +175,7 @@ See `docs/pitfalls.md` for the other batch-script traps these scripts hit.
 The replacement `hidi2c.sys` (`10.0.26100.1150`) is **not** in this repository. It is
 attached to the GitHub Release for this repo as `hidi2c-1150-kit.zip`.
 
-- SHA-256 of `hidi2c_26100_1150_SIGNED.sys` inside the zip: `B9A930357CF1DB021ECA9AD416368DE913BBF62D875330164D58D733E8750235`
+- SHA-256 of `hidi2c-1150.sys` inside the zip: `B9A930357CF1DB021ECA9AD416368DE913BBF62D875330164D58D733E8750235`
 - Verify after download: `certutil -hashfile hidi2c-1150.sys SHA256`
 - Extract the zip; place `hidi2c_26100_1150_SIGNED.sys` in your `Downloads`
   folder (or set `SRC_DIR`) before running the swap script.
