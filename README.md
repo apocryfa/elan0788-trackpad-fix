@@ -10,7 +10,7 @@ release asset (see [Binary](#binary)).
 
 ## What we found
 
-- The shipped driver is `hidi2c.sys` **10.0.26100.8972** caused huge problems. An older build,
+- The shipped driver is `hidi2c.sys` **10.0.26100.8972** which caused huge problems. An older build,
   **10.0.26100.1150**, makes failures less frequent and severe. `.1150` is the first signed older
   driver I found that reduced the problems.
 - The issue is hard to diagnose.  The PnP device stays `OK`, all services
