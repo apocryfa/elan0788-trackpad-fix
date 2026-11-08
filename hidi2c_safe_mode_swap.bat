@@ -39,11 +39,12 @@ set /p CONTINUE="Continue anyway? (y/N): "
 if /i not "!CONTINUE!"=="y" goto :CLEARFLAG
 
 :SAFE_MODE_OK
-set "SRC_DIR=%USERPROFILE%\Downloads"
+set "SRC_DIR=%~dp0"
+set "SRC_DIR=%SRC_DIR:~0,-1%"
 set TARGET_DIR=C:\Windows\System32\drivers
 set DRIVERSTORE_DIR=C:\Windows\System32\DriverStore\FileRepository\hidi2c.inf_amd64_0e065a7c7db24746
 set SYS_NAME=hidi2c.sys
-set NEW_SYS=hidi2c_26100_1150_SIGNED.sys
+set NEW_SYS=hidi2c-1150.sys
 set NEW_INF=hidi2c_1150.inf
 set NEW_CAT=hidi2c_26100.1_catalog.cat
 set "BACKUP_DIR=%USERPROFILE%\Desktop\hidi2c_backups"
@@ -57,7 +58,6 @@ echo.
 
 :: Verify source files exist
 if not exist "%SRC_DIR%\%NEW_SYS%" goto :FAIL_SRC_SYS
-if not exist "%SRC_DIR%\%NEW_INF%" goto :FAIL_SRC_INF
 
 :: Verify signature BEFORE anything else
 echo [1/6] Verifying signature of %NEW_SYS% ...
@@ -223,12 +223,6 @@ goto :CLEARFLAG
 :FAIL_SRC_SYS
 echo [ERROR] %NEW_SYS% not found in %SRC_DIR%
 >>"%LOG%" echo [ERROR] %NEW_SYS% not found in %SRC_DIR%
-pause
-goto :CLEARFLAG
-
-:FAIL_SRC_INF
-echo [ERROR] %NEW_INF% not found in %SRC_DIR%
->>"%LOG%" echo [ERROR] %NEW_INF% not found in %SRC_DIR%
 pause
 goto :CLEARFLAG
 

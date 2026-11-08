@@ -53,17 +53,19 @@ The binary is Microsoft's; redistribution is under their terms.
 
 ## Prerequisites (batch scripts)
 
-Place these in `C:\Users\<you>\Downloads` (or edit `SRC_DIR` in the script):
+The batch scripts run from their own folder and look for `hidi2c-1150.sys` there
+(the file shipped in the release kit). No specific download location is required —
+just extract the kit and run the script from that folder.
 
 | File | Purpose |
 |---|---|
-| `hidi2c_26100_1150_SIGNED.sys` | Replacement driver, `10.0.26100.1150` (from the release kit, renamed) |
-| `hidi2c_26100.8972.backup.sys` | Fallback copy of the original, for restore |
+| `hidi2c-1150.sys` | Replacement driver, `10.0.26100.1150` (from the release kit) |
+| `hidi2c_26100.8972.backup.sys` | Optional fallback copy of the original, for restore |
 
 The `.sys` must be a genuine Microsoft-signed binary. Verify before use:
 
 ```powershell
-Get-AuthenticodeSignature .\hidi2c_26100_1150_SIGNED.sys |
+Get-AuthenticodeSignature .\hidi2c-1150.sys |
     Select-Object Status, IsOSBinary, @{n='Signer';e={$_.SignerCertificate.Subject}}
 ```
 
@@ -77,7 +79,7 @@ values. Change them in the `set` block near the top of `hidi2c_safe_mode_swap.ba
 
 | Variable | Default | Notes |
 |---|---|---|
-| `SRC_DIR` | `%USERPROFILE%\Downloads` | Where the driver files sit |
+| `SRC_DIR` | script's own folder | Where the driver files sit (no fixed download location) |
 | `TARGET_DIR` | `C:\Windows\System32\drivers` | Do not change |
 | `DRIVERSTORE_DIR` | `...\FileRepository\hidi2c.inf_amd64_<hash>` | **Hash is machine-specific** — check with `pnputil /enum-drivers` |
 | `BACKUP_DIR` | `%USERPROFILE%\Desktop\hidi2c_backups` | Backup destination |
@@ -156,7 +158,7 @@ Every exit path pauses and clears the `safeboot` flag.
 powershell -NoProfile -Command "(Get-Item C:\Windows\System32\drivers\hidi2c.sys).VersionInfo.FileVersion"
 sc query hidi2c
 certutil -hashfile C:\Windows\System32\drivers\hidi2c.sys SHA256
-certutil -hashfile C:\Users\<you>\Downloads\hidi2c_26100_1150_SIGNED.sys SHA256
+certutil -hashfile C:\Users\<you>\Downloads\hidi2c-1150.sys SHA256
 ```
 
 The two hashes must match.
